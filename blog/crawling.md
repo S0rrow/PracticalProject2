@@ -17,35 +17,10 @@ Jsoup 라이브러리의 주요 사용방식들에 대해 정리했다.
 단 Jsoup 라이브러리만으로는 페이지의 소스만을 가져오기 때문에 실제 브라우저에서 해석하는 코드를 가져오지는 못한다.
 
 이때문에 Selenium 라이브러리를 사용하게 된다.
-{
-package edu.handong.csee.pp1;
-import java.io.IOException;
-import org.jsoup.*;
-import org.jsoup.nodes.*;
-import org.jsoup.select.*;
-	
-public class MainTester {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String url = "https://bbs.ruliweb.com/";
-		try {
-			Document doc = Jsoup.connect(url).timeout(5000).get();
-			//System.out.println(doc);
-			Elements ul = doc.select("ul.right_best_list");
-			//System.out.println(ul);
-			Elements li = ul.select("li");
-			System.out.println("루리웹 오른쪽 베스트");
-			for(int i = 0; i < li.size(); i++) {
-				Element listed = li.get(i);
-				System.out.println("["+listed.select("a").text()+"]");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-}
-}
+
+![pp2source](https://github.com/S0rrow/PracticalProject2/blob/master/blog/pp2source.PNG)
+
 해당 코드는 루리웹(https://bbs.ruliweb.com/)의 오른쪽 베스트를 리스트로 콘솔창에 보여주는 간단한 코드이다.
 오른쪽 베스트에 해당하는 태그가 ul이고, 클래스가 right_best_list이므로 해당하는 태그와 클래스를 넣어 select()함수로 HTML내에서 분리해준다.
 분리된 데이터에서 필요로 하는것은 단순히 제목뿐이므로 제목과 링크를 담은 li 태그에서 다시 제목이 저장된 a 태그에서 텍스트만 분리해서 콘솔창에 출력해준다.
