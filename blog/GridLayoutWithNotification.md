@@ -17,65 +17,15 @@ Apply?
 
 그리드 레이아웃으로 간단하게 버튼들을 배치했으니, 이제 각 버튼들에 Notification을 걸어줄 차례다.
 
-@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        buttonList.add((Button) findViewById(R.id.button1));
-        buttonList.add((Button) findViewById(R.id.button2));
-        buttonList.add((Button) findViewById(R.id.button3));
-        buttonList.add((Button) findViewById(R.id.button4));
-        buttonList.add((Button) findViewById(R.id.button5));
-        buttonList.add((Button) findViewById(R.id.button6));
-        buttonList.add((Button) findViewById(R.id.button7));
-        buttonList.add((Button) findViewById(R.id.button8));
-        buttonList.add((Button) findViewById(R.id.button9));
-        for(int i = 0; i < buttonList.size(); i++){
-            final int num = i;
-            buttonList.elementAt(i).setOnClickListener(new View.OnClickListener(){
-                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onClick(View view) {
-                    boolean rm = false;
-                    if(!rm) {
-                        createNotification(num);
-                        rm = !rm;
-                    }
-                    else{
-                        removeNotification(num);
-                        rm = !rm;
-                    }
-                }
-            });
-        }
-    }
-    
+![pp2_oncreate](https://github.com/S0rrow/PracticalProject2/blob/master/blog/oncreate.PNG)
+
 해당 코드는 onCreate 메서드이다. 미리 Button들을 담기 위한 Vector<Button> buttonList를 생성해서 해당 벡터에 버튼들을 저장한다.
 그 후, 순서대로 각 버튼에 OnclickListener를 삽입해 한번 클릭하면 createNotification 메서드가, 두번 클릭하면 removeNotification 메서드가 실행되게 했다.
-    
-    
-private void createNotification(int num){
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
-    builder.setSmallIcon(R.mipmap.ic_launcher);
-    builder.setContentTitle("button num");
-    builder.setContentText(""+num);
-    builder.setAutoCancel(true);
-    NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
-    }
-    notificationManager.notify(num, builder.build());
-}
 
+![pp2_createremovenot](https://github.com/S0rrow/PracticalProject2/blob/master/blog/createremovenot.PNG)
 
 createNotification 메서드는 제목을 button num, 내용을 버튼의 숫자로 해서 notification을 만들기 위한 메서드다.
 Notification이 생성될때, 특정 id 값을 가지고 생성되게 되는데, 이때 id 값을 각 버튼의 숫자로 했다.
-    
-    
-private void removeNotification(int num){
-   NotificationManagerCompat.from(this).cancel(num);
-}
-
 
 removeNotification 메서드는 특정 버튼이 눌렸을때, 숫자를 받아 그 id값의 notification을 제거하는 메서드다.
     
