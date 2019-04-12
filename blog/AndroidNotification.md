@@ -80,3 +80,5 @@ public class MainActivity extends AppCompatActivity {
         NotificationManagerCompat.from(this).cancel(1);
     }
 }
+
+![pp2simplenotiexe](https://github.com/S0rrow/PracticalProject2/blob/master/blog/simple_noti_execution.PNG)
